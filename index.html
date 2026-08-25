@@ -1,286 +1,632 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Tuodi Electronics | Precision OEM Hardware</title>
+  <title>Shenzhen Tuodi Electronics Co., Ltd. | Precision Sensor & Smart Lighting OEM/ODM</title>
+  <meta name="description" content="Tier-1 OEM/ODM manufacturing partner for PIR motion sensors, 5.8GHz Doppler radar switches, cabinet lighting, and smart wellness hardware. 6,500m² modernized plant in Shenzhen & Zhaoqing.">
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="style.css">
 </head>
-<body class="bg-black text-white antialiased selection:bg-white selection:text-black">
+<body class="bg-[#05070a] text-slate-100 antialiased selection:bg-cyan-500 selection:text-black">
 
-  <!-- Minimalist Nav -->
-  <nav class="fixed top-0 w-full z-50 glass-header">
-    <div class="max-w-[1400px] mx-auto px-6 h-20 flex items-center justify-between">
-      <div class="flex items-center gap-2">
-        <div class="w-8 h-8 bg-white text-black flex items-center justify-center font-bold text-xl rounded-sm tracking-tighter">T</div>
-        <span class="text-sm font-semibold tracking-wide uppercase">Tuodi Electronics</span>
+  <!-- Interactive Cursor Glow (Agency Micro-Interaction) -->
+  <div id="cursor-glow" class="cursor-glow hidden lg:block"></div>
+
+  <!-- Top Technical Telemetry Bar -->
+  <aside class="w-full bg-[#080c14] border-b border-white/[0.06] text-[11px] font-mono text-slate-400 py-1.5 px-6 hidden sm:block">
+    <div class="max-w-7xl mx-auto flex items-center justify-between">
+      <div class="flex items-center gap-6">
+        <span class="flex items-center gap-2">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span class="text-slate-300">SHENZHEN & ZHAOQING PLANTS:</span>
+          <span class="text-emerald-400 font-semibold">100% OPERATIONAL (OEE: 94.8%)</span>
+        </span>
+        <span class="text-slate-600">|</span>
+        <span>LAT 22.72° N, LONG 113.82° E</span>
       </div>
-      <div class="hidden md:flex items-center gap-10 text-sm font-medium text-gray-400">
-        <a href="#engineering" class="hover:text-white transition">Engineering</a>
-        <a href="#products" class="hover:text-white transition">Hardware</a>
-        <a href="#factory" class="hover:text-white transition">Factory</a>
-        <a href="#compliance" class="hover:text-white transition">Compliance</a>
+      <div class="flex items-center gap-5">
+        <span>ISO 9001:2015 CERTIFIED</span>
+        <span class="text-slate-600">|</span>
+        <span>CE / FCC / RoHS / UKCA / PSE</span>
+        <span class="text-slate-600">|</span>
+        <div class="flex items-center gap-1.5">
+          <button id="lang-en" onclick="setLanguage('en')" class="text-cyan-400 font-bold hover:underline">EN</button>
+          <span class="text-slate-600">/</span>
+          <button id="lang-cn" onclick="setLanguage('cn')" class="text-slate-400 hover:text-white transition">中文</button>
+        </div>
       </div>
-      <div>
-        <button onclick="openModal('rfq-modal')" class="text-xs font-semibold uppercase tracking-widest bg-white text-black px-5 py-2.5 rounded-full hover:scale-105 transition-transform">
-          Contact Sales
+    </div>
+  </aside>
+
+  <!-- Sticky Ultra-Clean Navigation -->
+  <header class="sticky top-0 z-50 bg-[#05070a]/80 backdrop-blur-xl border-b border-white/[0.08]">
+    <div class="max-w-7xl mx-auto px-6 h-20 flex items-center justify-between">
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group">
+        <div class="w-9 h-9 rounded bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-black font-extrabold text-xl shadow-lg shadow-cyan-500/20 group-hover:scale-105 transition-transform">
+          T
+        </div>
+        <div>
+          <span class="text-base font-bold tracking-tight text-white block leading-none">TUODI ELECTRONICS</span>
+          <span class="text-[10px] font-mono text-cyan-400 tracking-wider uppercase block mt-1">拓迪电子 • PRECISION OEM/ODM</span>
+        </div>
+      </a>
+
+      <!-- Nav Links -->
+      <nav class="hidden md:flex items-center gap-8 text-xs font-medium uppercase tracking-wider text-slate-300">
+        <a href="#engineering" class="hover:text-cyan-400 transition">Engineering & Labs</a>
+        <a href="#teardown" class="hover:text-cyan-400 transition">Hardware Teardown</a>
+        <a href="#products" class="hover:text-cyan-400 transition">Product Catalog</a>
+        <a href="#pipeline" class="hover:text-cyan-400 transition">OEM Pipeline</a>
+        <a href="#factory" class="hover:text-cyan-400 transition">Plant Audit</a>
+        <a href="#downloads" class="hover:text-cyan-400 transition">CAD & Certs</a>
+      </nav>
+
+      <!-- Action Button -->
+      <div class="flex items-center gap-3">
+        <button onclick="openRfqModal()" class="btn-primary">
+          <span>Launch Instant RFQ</span>
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M14 5l7 7m0 0l-7 7m7-7H3"/></svg>
         </button>
       </div>
-    </div>
-  </nav>
-
-  <!-- Cinematic Hero -->
-  <header class="relative h-screen flex items-center justify-center overflow-hidden">
-    <!-- Background Image -->
-    <div class="absolute inset-0 z-0 image-vignette">
-      <img src="https://www.tuodi.com/template/tuodi/skin/images/fzlc1.jpg" alt="Tuodi SMT Line" class="w-full h-full object-cover opacity-40 scale-105" crossorigin="anonymous">
-    </div>
-    
-    <!-- Hero Content -->
-    <div class="relative z-10 text-center px-4 max-w-5xl mx-auto mt-20">
-      <div class="reveal">
-        <p class="text-gray-400 font-mono text-sm mb-6 tracking-[0.2em] uppercase">ISO 9001:2015 • Shenzhen & Zhaoqing</p>
-      </div>
-      <div class="reveal reveal-delay-1">
-        <h1 class="text-6xl md:text-8xl lg:text-9xl font-semibold tracking-tighter text-balance leading-[0.9]">
-          Precision.<br><span class="text-gradient">At Scale.</span>
-        </h1>
-      </div>
-      <div class="reveal reveal-delay-2 mt-8 md:mt-12 max-w-2xl mx-auto">
-        <p class="text-lg md:text-2xl text-gray-400 font-light text-balance leading-relaxed">
-          Engineering ultra-low power PIR and Doppler radar sensors for the world's leading smart home brands.
-        </p>
-      </div>
-      <div class="reveal reveal-delay-3 mt-12 flex items-center justify-center gap-6">
-        <button onclick="openModal('rfq-modal')" class="btn-primary">
-          Start an OEM Project
-        </button>
-        <a href="#factory" class="btn-secondary">
-          View Infrastructure
-        </a>
-      </div>
-    </div>
-
-    <!-- Scroll Indicator -->
-    <div class="absolute bottom-10 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-50 reveal reveal-delay-3">
-      <span class="text-[10px] font-mono tracking-widest uppercase">Scroll</span>
-      <div class="w-[1px] h-12 bg-gradient-to-b from-white to-transparent"></div>
     </div>
   </header>
 
-  <!-- Massive Metrics -->
-  <section class="py-32 bg-[#050505] border-y border-[#1a1a1a]">
-    <div class="max-w-[1400px] mx-auto px-6">
-      <div class="grid grid-cols-1 md:grid-cols-4 gap-12 md:gap-6 divide-y md:divide-y-0 md:divide-x divide-[#1a1a1a]">
-        <div class="pt-8 md:pt-0 md:px-8 reveal">
-          <div class="text-5xl md:text-7xl font-bold tracking-tighter mb-2">6,500<span class="text-3xl text-gray-500 font-light">m²</span></div>
-          <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">Manufacturing Base</div>
-        </div>
-        <div class="pt-8 md:pt-0 md:px-8 reveal reveal-delay-1">
-          <div class="text-5xl md:text-7xl font-bold tracking-tighter mb-2">80<span class="text-3xl text-gray-500 font-light">k</span></div>
-          <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">Daily Output Capacity</div>
-        </div>
-        <div class="pt-8 md:pt-0 md:px-8 reveal reveal-delay-2">
-          <div class="text-5xl md:text-7xl font-bold tracking-tighter mb-2">79<span class="text-3xl text-gray-500 font-light">+</span></div>
-          <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">Global Patents</div>
-        </div>
-        <div class="pt-8 md:pt-0 md:px-8 reveal reveal-delay-3">
-          <div class="text-5xl md:text-7xl font-bold tracking-tighter mb-2">18<span class="text-3xl text-gray-500 font-light">yr</span></div>
-          <div class="text-xs font-mono text-gray-500 uppercase tracking-widest">R&D Experience</div>
-        </div>
-      </div>
-    </div>
-  </section>
+  <!-- Hero Section (Editorial Agency Scale) -->
+  <section class="relative min-h-[90vh] flex items-center justify-center py-20 px-6 overflow-hidden bg-tech-grid bg-radial-glow">
+    <!-- Ambient Gradient Backdrops -->
+    <div class="absolute top-1/4 left-1/2 -translate-x-1/2 w-[800px] h-[350px] bg-gradient-to-tr from-cyan-500/10 to-blue-600/10 blur-[120px] pointer-events-none"></div>
 
-  <!-- Engineering Abstract (Canvas) -->
-  <section id="engineering" class="py-40 relative overflow-hidden bg-black">
-    <div class="absolute inset-0 z-0">
-      <canvas id="engineering-canvas" class="w-full h-full opacity-40"></canvas>
-    </div>
-    <div class="relative z-10 max-w-[1400px] mx-auto px-6 grid grid-cols-1 md:grid-cols-2 gap-20 items-center">
-      <div class="reveal">
-        <h2 class="text-5xl md:text-7xl font-bold tracking-tighter mb-8 leading-none">Architects of<br><span class="text-gray-500">Sensing.</span></h2>
-        <p class="text-xl text-gray-400 font-light leading-relaxed mb-10 max-w-lg">
-          We don't just assemble; we engineer from the algorithm up. Our proprietary 5.8GHz Doppler radar and dual-element PIR architectures deliver sub-millisecond response times with zero false triggers.
-        </p>
-        <div class="space-y-6 border-l border-[#333] pl-6">
-          <div>
-            <div class="text-white font-mono text-sm mb-1">0.18ms Latency</div>
-            <div class="text-gray-500 text-sm">Ultra-fast logic gate trigger response.</div>
-          </div>
-          <div>
-            <div class="text-white font-mono text-sm mb-1">&lt; 15μA Standby</div>
-            <div class="text-gray-500 text-sm">Industry-leading quiescent current for IoT.</div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <!-- Apple-Style Sticky Product Showcase -->
-  <section id="products" class="bg-[#0a0a0a]">
-    <div class="sticky-container max-w-[1400px] mx-auto px-6">
-      <div class="sticky-content grid grid-cols-1 md:grid-cols-2 gap-12">
-        
-        <!-- Left: Scrolling Text -->
-        <div class="relative h-full w-full flex flex-col justify-center">
-          
-          <div class="product-scroll-section absolute w-full inset-y-0 flex flex-col justify-center pr-12 transition-all duration-500" style="opacity: 1; transform: translateY(0);">
-            <div class="text-xs font-mono text-gray-500 mb-4 tracking-widest">TD-SL-8022</div>
-            <h3 class="text-4xl md:text-5xl font-bold tracking-tighter mb-6 text-white">Ultra-Thin Magnetic Cabinet Lighting.</h3>
-            <p class="text-lg text-gray-400 font-light mb-8">Seamless edge-lit diffuse optics encased in a 9.0mm aircraft aluminum chassis. Tri-color tuning and PIR auto-sensing.</p>
-            <div><button onclick="openModal('rfq-modal')" class="btn-secondary text-sm">Request Sample</button></div>
-          </div>
-
-          <div class="product-scroll-section absolute w-full inset-y-0 flex flex-col justify-center pr-12 transition-all duration-500" style="opacity: 0; transform: translateY(40px);">
-            <div class="text-xs font-mono text-gray-500 mb-4 tracking-widest">TD-MW-360B</div>
-            <h3 class="text-4xl md:text-5xl font-bold tracking-tighter mb-6 text-white">5.8GHz Microwave Doppler Radar.</h3>
-            <p class="text-lg text-gray-400 font-light mb-8">High-penetration CW radar capable of detecting motion through non-metallic walls. Ideal for commercial HVAC and high-bay lighting.</p>
-            <div><button onclick="openModal('rfq-modal')" class="btn-secondary text-sm">Request Sample</button></div>
-          </div>
-
-          <div class="product-scroll-section absolute w-full inset-y-0 flex flex-col justify-center pr-12 transition-all duration-500" style="opacity: 0; transform: translateY(40px);">
-            <div class="text-xs font-mono text-gray-500 mb-4 tracking-widest">TD-WS-401</div>
-            <h3 class="text-4xl md:text-5xl font-bold tracking-tighter mb-6 text-white">0.25s Hydro-Pulse Touchless Tap.</h3>
-            <p class="text-lg text-gray-400 font-light mb-8">Transform any faucet into a smart touchless fixture. Patented dual-zone infrared sensor with 9-month battery standby.</p>
-            <div><button onclick="openModal('rfq-modal')" class="btn-secondary text-sm">Request Sample</button></div>
-          </div>
-
-          <div class="product-scroll-section absolute w-full inset-y-0 flex flex-col justify-center pr-12 transition-all duration-500" style="opacity: 0; transform: translateY(40px);">
-            <div class="text-xs font-mono text-gray-500 mb-4 tracking-widest">TD-KC-505</div>
-            <h3 class="text-4xl md:text-5xl font-bold tracking-tighter mb-6 text-white">High-Frequency RFID Power Management.</h3>
-            <p class="text-lg text-gray-400 font-light mb-8">Hospitality-grade energy management. Recognizes Mifare-1 room cards exclusively to slash hotel HVAC waste by 35%.</p>
-            <div><button onclick="openModal('rfq-modal')" class="btn-secondary text-sm">Request Sample</button></div>
-          </div>
-
-        </div>
-
-        <!-- Right: Sticky Image -->
-        <div class="h-[60vh] md:h-[80vh] w-full rounded-2xl overflow-hidden bg-[#111] border border-[#222] my-auto relative">
-          <img id="product-showcase-img" src="https://www.tuodi.com/static/upload/image/20240608/1717815887230502.jpg" class="w-full h-full object-cover transition-opacity duration-500 mix-blend-screen opacity-90" crossorigin="anonymous" data-current-index="0" alt="Product">
-          <div class="absolute inset-0 bg-gradient-to-t from-black to-transparent opacity-50"></div>
-          <div class="absolute top-6 right-6">
-            <span class="px-3 py-1 bg-white/10 backdrop-blur-md rounded-full text-xs font-mono text-white border border-white/20">OEM AVAILABLE</span>
-          </div>
-        </div>
-
-      </div>
-    </div>
-  </section>
-
-  <!-- Massive Factory Imagery Section -->
-  <section id="factory" class="bg-black">
-    <div class="max-w-[1400px] mx-auto px-6 py-32 border-t border-[#1a1a1a]">
+    <div class="max-w-7xl mx-auto w-full relative z-10">
       
-      <div class="reveal mb-20">
-        <h2 class="text-5xl md:text-8xl font-bold tracking-tighter mb-6 leading-none">The standard of<br><span class="text-gray-500">production.</span></h2>
-        <p class="text-xl text-gray-400 font-light max-w-2xl">A vertical integration approach. From raw PCB to DDP logistics, everything happens inside our 6,500m² walls.</p>
+      <!-- Top Badges -->
+      <div class="flex flex-wrap items-center gap-3 mb-8 reveal">
+        <span class="tech-tag border-cyan-500/30 text-cyan-300 bg-cyan-950/40">
+          <span class="inline-block w-1.5 h-1.5 rounded-full bg-cyan-400 animate-ping mr-1"></span> TIER-1 GLOBAL SENSOR OEM / ODM
+        </span>
+        <span class="tech-tag">18+ YEARS PRECISION HARDWARE</span>
+        <span class="tech-tag">6,500m² PRODUCTION BASE</span>
       </div>
 
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      <!-- Main Title -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-end mb-16">
+        <div class="lg:col-span-8 reveal">
+          <h1 class="text-5xl sm:text-7xl lg:text-8xl font-extrabold tracking-tighter text-white leading-[0.95] text-balance">
+            Intelligent Sensing.<br>
+            <span class="bg-gradient-to-r from-white via-slate-200 to-slate-500 bg-clip-text text-transparent">Engineered For Scale.</span>
+          </h1>
+        </div>
+        <div class="lg:col-span-4 reveal">
+          <p class="text-base sm:text-lg text-slate-300 font-normal leading-relaxed mb-6">
+            Powering Fortune 500 smart home brands and industrial automation leaders with proprietary 5.8GHz/24GHz Doppler radar, dual-element PIR optics, and turnkey contract manufacturing.
+          </p>
+          <div class="flex flex-wrap gap-4">
+            <button onclick="openRfqModal()" class="btn-primary">
+              <span>Request BOM & Sample</span>
+            </button>
+            <a href="#teardown" class="btn-secondary">
+              <span>Inspect Hardware</span>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Live Factory HUD Card Preview -->
+      <div class="titanium-panel rounded-2xl p-6 sm:p-8 relative overflow-hidden reveal">
+        <div class="grid grid-cols-2 sm:grid-cols-4 gap-8 divide-y sm:divide-y-0 sm:divide-x divide-white/[0.08]">
+          <div class="pt-4 sm:pt-0 sm:px-6">
+            <div class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">01 / Total Footprint</div>
+            <div class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white counter" data-target="6500">6,500</div>
+            <div class="text-xs text-slate-400 mt-1">m² Modern Cleanrooms</div>
+          </div>
+          <div class="pt-4 sm:pt-0 sm:px-6">
+            <div class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">02 / SMT Speed</div>
+            <div class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white counter" data-target="40000">40,000</div>
+            <div class="text-xs text-slate-400 mt-1">CPH Yamaha Precision</div>
+          </div>
+          <div class="pt-4 sm:pt-0 sm:px-6">
+            <div class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">03 / Patent Vault</div>
+            <div class="text-3xl sm:text-5xl font-extrabold tracking-tight text-white counter" data-target="79">79+</div>
+            <div class="text-xs text-slate-400 mt-1">Proprietary Inventions</div>
+          </div>
+          <div class="pt-4 sm:pt-0 sm:px-6">
+            <div class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-1">04 / Defect Threshold</div>
+            <div class="text-3xl sm:text-5xl font-extrabold tracking-tight text-emerald-400">&lt; 0.02%</div>
+            <div class="text-xs text-slate-400 mt-1">Full 48h Thermal Burn-in</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive 4-Layer Hardware Teardown (Apple/DJI Agency Showcase) -->
+  <section id="teardown" class="py-32 px-6 bg-[#070a10] hairline-border-t">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal">
+        <div>
+          <div class="tech-tag text-cyan-400 border-cyan-500/30 mb-3 inline-block">PATENTED SENSING ARCHITECTURE</div>
+          <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tighter text-white">Anatomy of Sub-Millisecond Precision.</h2>
+        </div>
+        <p class="text-slate-400 text-sm max-w-md">
+          Explore the vertical layer stackup engineered inside Shenzhen Tuodi's flagship multi-sensor modules.
+        </p>
+      </div>
+
+      <!-- Interactive Layer Selector & Display -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-10 items-center">
         
-        <!-- Factory Image 1 -->
-        <div class="group relative h-[600px] rounded-2xl overflow-hidden bg-[#111] reveal">
-          <img src="https://www.tuodi.com/template/tuodi/skin/images/fzlc1.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-1000 grayscale group-hover:grayscale-0" crossorigin="anonymous">
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-          <div class="absolute bottom-8 left-8 right-8">
-            <div class="text-xs font-mono text-gray-400 mb-2 tracking-widest">01 / SMT LINES</div>
-            <h3 class="text-3xl font-bold text-white mb-2 tracking-tight">Yamaha High-Speed Placement.</h3>
-            <p class="text-gray-400 text-sm">40,000 CPH precision placement with 0201 chip scale accuracy and 10-zone nitrogen reflow.</p>
+        <!-- Left: Layer Selector Buttons -->
+        <div class="lg:col-span-5 space-y-3 reveal">
+          <div onclick="selectLayer(0)" id="layer-btn-0" class="layer-card active titanium-panel p-5 rounded-xl cursor-pointer">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono text-cyan-400">LAYER 01</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300">OPTICAL</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">Fresnel Precision Multi-Zone Array</h3>
+            <p class="text-xs text-slate-400">92% high-transmittance optical grade polycarbonate with 120° multi-facet detection.</p>
+          </div>
+
+          <div onclick="selectLayer(1)" id="layer-btn-1" class="layer-card titanium-panel p-5 rounded-xl cursor-pointer">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono text-cyan-400">LAYER 02</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300">MICROWAVE & PIR</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">5.8GHz / 24GHz Doppler Transceiver</h3>
+            <p class="text-xs text-slate-400">Continuous wave micro-radar with dual-element pyroelectric infrared differential filter.</p>
+          </div>
+
+          <div onclick="selectLayer(2)" id="layer-btn-2" class="layer-card titanium-panel p-5 rounded-xl cursor-pointer">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono text-cyan-400">LAYER 03</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300">SMT PCBA</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">High-Density 4-Layer Controller</h3>
+            <p class="text-xs text-slate-400">&lt;15μA ultra-low quiescent standby with Yamaha high-precision 0201 chip components.</p>
+          </div>
+
+          <div onclick="selectLayer(3)" id="layer-btn-3" class="layer-card titanium-panel p-5 rounded-xl cursor-pointer">
+            <div class="flex items-center justify-between mb-1">
+              <span class="text-xs font-mono text-cyan-400">LAYER 04</span>
+              <span class="text-[10px] font-mono px-2 py-0.5 rounded bg-white/10 text-slate-300">POWER & ENCLOSURE</span>
+            </div>
+            <h3 class="text-lg font-bold text-white mb-1">40A Flame-Retardant Relay & Housing</h3>
+            <p class="text-xs text-slate-400">V-0 fireproof polycarbonate chassis with high-surge 8800W load capacity.</p>
           </div>
         </div>
 
-        <!-- Factory Image 2 -->
-        <div class="group relative h-[600px] rounded-2xl overflow-hidden bg-[#111] reveal reveal-delay-1">
-          <img src="https://www.tuodi.com/template/tuodi/skin/images/fzlc2.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-1000 grayscale group-hover:grayscale-0" crossorigin="anonymous">
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-          <div class="absolute bottom-8 left-8 right-8">
-            <div class="text-xs font-mono text-gray-400 mb-2 tracking-widest">02 / OPTICAL LAB</div>
-            <h3 class="text-3xl font-bold text-white mb-2 tracking-tight">Everfine Integrating Sphere.</h3>
-            <p class="text-gray-400 text-sm">Certified photometrical testing suite measuring total luminous flux, CRI, and SDCM consistency.</p>
+        <!-- Right: Dynamic Layer Visualizer Panel -->
+        <div class="lg:col-span-7 titanium-panel rounded-2xl p-8 sm:p-10 relative overflow-hidden reveal">
+          <div class="absolute top-4 right-4 flex items-center gap-2">
+            <span class="w-2 h-2 rounded-full bg-cyan-400 animate-pulse"></span>
+            <span id="layer-code" class="text-xs font-mono text-cyan-400">SPEC: TD-OPT-F120</span>
+          </div>
+
+          <div class="mb-6">
+            <div id="layer-badge" class="tech-tag border-cyan-500/30 text-cyan-300 inline-block mb-3">OPTICAL FRESNEL LENS ARRAY</div>
+            <h4 id="layer-title" class="text-2xl sm:text-3xl font-extrabold text-white mb-3">Micro-Facet Optical Transmission</h4>
+            <p id="layer-desc" class="text-sm text-slate-300 leading-relaxed mb-6">
+              Features 32 high-refraction micro-zones configured to partition thermal infrared radiation into discrete sensing cones, preventing accidental triggers from pets and temperature gradients.
+            </p>
+          </div>
+
+          <!-- Technical Spec Table for Layer -->
+          <div class="overflow-hidden rounded-xl border border-white/[0.08] bg-[#05070a]/60 mb-6">
+            <table class="w-full text-left text-xs font-mono">
+              <tbody id="layer-specs" class="divide-y divide-white/[0.06]">
+                <tr>
+                  <td class="py-3 px-4 text-slate-400 bg-white/[0.02]">Transmission Efficiency</td>
+                  <td class="py-3 px-4 text-cyan-300 font-semibold">&gt; 92.4% (8-14μm Wavelength)</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-slate-400 bg-white/[0.02]">Focal Length / Angle</td>
+                  <td class="py-3 px-4 text-cyan-300 font-semibold">12.5mm / 120° Multi-Zone</td>
+                </tr>
+                <tr>
+                  <td class="py-3 px-4 text-slate-400 bg-white/[0.02]">Thermal Resistance</td>
+                  <td class="py-3 px-4 text-cyan-300 font-semibold">-40°C to +110°C Continuous</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="flex items-center gap-4">
+            <button onclick="downloadCadSpec()" class="btn-primary text-xs py-2.5 px-4">
+              <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
+              <span>Download 3D CAD .STEP</span>
+            </button>
+            <span class="text-[11px] font-mono text-slate-400">Available under NDA</span>
           </div>
         </div>
 
-        <!-- Factory Image 3 (Full width) -->
-        <div class="group relative h-[600px] rounded-2xl overflow-hidden bg-[#111] reveal md:col-span-2">
-          <img src="https://www.tuodi.com/template/tuodi/skin/images/fzlc7.jpg" class="w-full h-full object-cover opacity-60 group-hover:scale-105 group-hover:opacity-80 transition-all duration-1000 grayscale group-hover:grayscale-0" crossorigin="anonymous">
-          <div class="absolute inset-0 bg-gradient-to-t from-black via-black/40 to-transparent"></div>
-          <div class="absolute inset-0 flex items-center justify-center">
-            <div class="w-24 h-24 rounded-full bg-white/10 backdrop-blur-md border border-white/20 flex items-center justify-center cursor-pointer hover:bg-white hover:text-black transition-colors">
-              <svg class="w-8 h-8 ml-1" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Interactive CAD Doppler & PIR Radar Simulator (Keyence / Festo Caliber) -->
+  <section id="engineering" class="py-32 px-6 bg-[#05070a] hairline-border-t">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center mb-12">
+        <div class="lg:col-span-6 reveal">
+          <div class="tech-tag text-cyan-400 border-cyan-500/30 mb-3 inline-block">LIVE RADAR & BEAM SIMULATOR</div>
+          <h2 class="text-4xl sm:text-5xl font-extrabold tracking-tighter text-white mb-4">Precision Waveform & Target Acquisition.</h2>
+          <p class="text-slate-300 text-sm leading-relaxed mb-6">
+            Interact with Tuodi's real-time electromagnetic sensor simulation. Move your cursor over the telemetry canvas to observe Doppler velocity detection, lux threshold gating, and wall penetration capabilities.
+          </p>
+          
+          <!-- Mode Selectors -->
+          <div class="flex flex-wrap gap-2 mb-6">
+            <button onclick="setSimMode('radar')" id="sim-radar-btn" class="px-4 py-2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-mono font-bold">5.8GHz DOPPLER RADAR</button>
+            <button onclick="setSimMode('pir')" id="sim-pir-btn" class="px-4 py-2 rounded bg-white/5 text-slate-400 border border-white/10 hover:text-white text-xs font-mono">DUAL-PIR INFRARED</button>
+            <button onclick="setSimMode('hydro')" id="sim-hydro-btn" class="px-4 py-2 rounded bg-white/5 text-slate-400 border border-white/10 hover:text-white text-xs font-mono">HYDRO TOUCHLESS TAP</button>
+          </div>
+        </div>
+
+        <!-- Telemetry Data Overlay -->
+        <div class="lg:col-span-6 titanium-panel rounded-xl p-5 font-mono text-xs text-slate-300 space-y-3 reveal">
+          <div class="flex items-center justify-between border-b border-white/[0.08] pb-2">
+            <span class="text-slate-400">SENSOR CORE STATUS:</span>
+            <span id="cad-status" class="text-emerald-400 font-bold">● ACTIVE SWEEP (0.18ms RESPONSE)</span>
+          </div>
+          <div class="grid grid-cols-3 gap-4 text-center">
+            <div class="bg-black/40 p-3 rounded border border-white/[0.05]">
+              <div class="text-[10px] text-slate-400">DISTANCE</div>
+              <div id="cad-dist" class="text-base font-bold text-cyan-400 mt-1">2.45 m</div>
+            </div>
+            <div class="bg-black/40 p-3 rounded border border-white/[0.05]">
+              <div class="text-[10px] text-slate-400">DOPPLER FREQ</div>
+              <div id="cad-freq" class="text-base font-bold text-white mt-1">5.80 GHz</div>
+            </div>
+            <div class="bg-black/40 p-3 rounded border border-white/[0.05]">
+              <div class="text-[10px] text-slate-400">QUIESCENT CURRENT</div>
+              <div class="text-base font-bold text-emerald-400 mt-1">&lt; 14.2 μA</div>
             </div>
           </div>
-          <div class="absolute bottom-8 left-8 right-8">
-            <div class="text-xs font-mono text-gray-400 mb-2 tracking-widest">03 / BURN-IN QA</div>
-            <h3 class="text-3xl font-bold text-white mb-2 tracking-tight">48-Hour Thermal Cycling.</h3>
-            <p class="text-gray-400 text-sm max-w-2xl">Every finished batch undergoes rigorous high-voltage switching and thermal exposure to ensure 0.02% ultra-low field defect rate.</p>
+        </div>
+      </div>
+
+      <!-- Canvas Container -->
+      <div class="w-full h-96 rounded-2xl bg-[#030407] border border-white/[0.1] relative overflow-hidden shadow-2xl reveal">
+        <canvas id="cad-canvas" class="w-full h-full"></canvas>
+        <div class="absolute bottom-3 left-4 text-[10px] font-mono text-slate-400 pointer-events-none">
+          ENGINEERING LAB CAD SIMULATION • REAL-TIME MOUSE DISPLACEMENT TRACKING
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Product Matrix (B2B Enterprise Catalog) -->
+  <section id="products" class="py-32 px-6 bg-[#070a10] hairline-border-t">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal">
+        <div>
+          <div class="tech-tag text-cyan-400 border-cyan-500/30 mb-3 inline-block">FLAGSHIP HARDWARE PORTFOLIO</div>
+          <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tighter text-white">Commercial & Smart Home Catalog.</h2>
+        </div>
+        
+        <!-- Category Filter Tabs -->
+        <div class="flex flex-wrap gap-2">
+          <button onclick="filterCatalog('all')" class="cat-btn px-4 py-2 rounded bg-cyan-500/20 text-cyan-300 border border-cyan-500/40 text-xs font-mono font-bold" data-cat="all">ALL (6)</button>
+          <button onclick="filterCatalog('lighting')" class="cat-btn px-4 py-2 rounded bg-white/5 text-slate-400 border border-white/10 hover:text-white text-xs font-mono" data-cat="lighting">LIGHTING</button>
+          <button onclick="filterCatalog('switch')" class="cat-btn px-4 py-2 rounded bg-white/5 text-slate-400 border border-white/10 hover:text-white text-xs font-mono" data-cat="switch">SWITCHES</button>
+          <button onclick="filterCatalog('wellness')" class="cat-btn px-4 py-2 rounded bg-white/5 text-slate-400 border border-white/10 hover:text-white text-xs font-mono" data-cat="wellness">WELLNESS</button>
+        </div>
+      </div>
+
+      <!-- Product Grid -->
+      <div id="product-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <!-- Dynamically rendered via app.js -->
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Turnkey OEM / ODM 5-Stage Pipeline (Flex / Foxconn Tier) -->
+  <section id="pipeline" class="py-32 px-6 bg-[#05070a] hairline-border-t">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-3xl mx-auto mb-20 reveal">
+        <div class="tech-tag text-cyan-400 border-cyan-500/30 mb-3 inline-block">STAGE-GATE OEM/ODM WORKFLOW</div>
+        <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tighter text-white mb-4">From Concept to Mass Production.</h2>
+        <p class="text-slate-400 text-sm">
+          Accelerate time-to-market with Shenzhen Tuodi's vertically integrated engineering pipeline. 25-day rapid delivery.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-5 gap-6">
+        
+        <div class="titanium-panel p-6 rounded-xl relative reveal">
+          <div class="text-3xl font-extrabold font-mono text-cyan-400 mb-4">01</div>
+          <h3 class="text-base font-bold text-white mb-2">ID & Thermal CAD</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Industrial exterior design, 3D CAD modeling, mold flow analysis, and optical ray tracing simulation.</p>
+          <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-1 rounded border border-cyan-800/40">3 - 5 Days</span>
+        </div>
+
+        <div class="titanium-panel p-6 rounded-xl relative reveal">
+          <div class="text-3xl font-extrabold font-mono text-cyan-400 mb-4">02</div>
+          <h3 class="text-base font-bold text-white mb-2">Tooling & CNC</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">High-precision private injection mold fabrication and CNC aluminum extrusion chassis prototyping.</p>
+          <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-1 rounded border border-cyan-800/40">12 - 15 Days</span>
+        </div>
+
+        <div class="titanium-panel p-6 rounded-xl relative reveal">
+          <div class="text-3xl font-extrabold font-mono text-cyan-400 mb-4">03</div>
+          <h3 class="text-base font-bold text-white mb-2">High-Speed SMT</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Yamaha SMT pick-and-place lines, 3D solder paste inspection (SPI), and reflow soldering.</p>
+          <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-1 rounded border border-cyan-800/40">48h Pilot Batch</span>
+        </div>
+
+        <div class="titanium-panel p-6 rounded-xl relative reveal">
+          <div class="text-3xl font-extrabold font-mono text-cyan-400 mb-4">04</div>
+          <h3 class="text-base font-bold text-white mb-2">Burn-in & QA</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">48-hour full-load thermal stress cycling (-40°C~+85°C), optical integrating sphere spectroradiometry.</p>
+          <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-1 rounded border border-cyan-800/40">100% Inspected</span>
+        </div>
+
+        <div class="titanium-panel p-6 rounded-xl relative reveal">
+          <div class="text-3xl font-extrabold font-mono text-cyan-400 mb-4">05</div>
+          <h3 class="text-base font-bold text-white mb-2">Global DDP</h3>
+          <p class="text-xs text-slate-400 leading-relaxed mb-4">Custom OEM retail packaging, Amazon FBA palletization, laser silkscreening, and worldwide customs clearance.</p>
+          <span class="text-[10px] font-mono text-cyan-300 bg-cyan-950/60 px-2 py-1 rounded border border-cyan-800/40">Worldwide Air/Ocean</span>
+        </div>
+
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Virtual Factory Audit & Cleanroom Verification -->
+  <section id="factory" class="py-32 px-6 bg-[#070a10] hairline-border-t">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="flex flex-col md:flex-row md:items-end justify-between mb-16 gap-6 reveal">
+        <div>
+          <div class="tech-tag text-cyan-400 border-cyan-500/30 mb-3 inline-block">MANUFACTURING BASE AUDIT</div>
+          <h2 class="text-4xl sm:text-6xl font-extrabold tracking-tighter text-white">6,500m² Certified Plant & Cleanrooms.</h2>
+        </div>
+        <p class="text-slate-400 text-sm max-w-md">
+          Take a transparent audit of Shenzhen Tuodi's precision machinery, optical testing darkrooms, and ESD assembly floors.
+        </p>
+      </div>
+
+      <!-- Factory Tabs & Large Display -->
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Machinery List Tabs -->
+        <div class="lg:col-span-4 space-y-3 reveal">
+          <button onclick="setFactoryAudit('smt')" id="fac-btn-smt" class="fac-btn w-full p-4 rounded-xl text-left titanium-panel border-cyan-500/50 bg-cyan-950/20">
+            <div class="text-xs font-mono text-cyan-400 mb-1">STATION 01</div>
+            <div class="text-base font-bold text-white">Yamaha SMT Pick & Place Lines</div>
+            <div class="text-xs text-slate-400 mt-1">40,000 CPH • 0201 Component Accuracy</div>
+          </button>
+
+          <button onclick="setFactoryAudit('lab')" id="fac-btn-lab" class="fac-btn w-full p-4 rounded-xl text-left titanium-panel">
+            <div class="text-xs font-mono text-cyan-400 mb-1">STATION 02</div>
+            <div class="text-base font-bold text-white">Everfine Integrating Sphere Lab</div>
+            <div class="text-xs text-slate-400 mt-1">Spectral Flux • CRI & SDCM Consistency</div>
+          </button>
+
+          <button onclick="setFactoryAudit('aging')" id="fac-btn-aging" class="fac-btn w-full p-4 rounded-xl text-left titanium-panel">
+            <div class="text-xs font-mono text-cyan-400 mb-1">STATION 03</div>
+            <div class="text-base font-bold text-white">48-Hour Thermal Aging Room</div>
+            <div class="text-xs text-slate-400 mt-1">-40°C ~ +85°C High/Low Voltage Stress</div>
+          </button>
+
+          <button onclick="setFactoryAudit('clean')" id="fac-btn-clean" class="fac-btn w-full p-4 rounded-xl text-left titanium-panel">
+            <div class="text-xs font-mono text-cyan-400 mb-1">STATION 04</div>
+            <div class="text-base font-bold text-white">ISO Class 7 Optical Cleanroom</div>
+            <div class="text-xs text-slate-400 mt-1">ESD Static Grounding • Lens Ultrasonic Bonding</div>
+          </button>
+        </div>
+
+        <!-- Right: Large Factory Photo Display -->
+        <div class="lg:col-span-8 titanium-panel rounded-2xl overflow-hidden reveal relative">
+          <div class="h-[460px] relative overflow-hidden bg-black">
+            <img id="fac-image" src="https://www.tuodi.com/template/tuodi/skin/images/fzlc1.jpg" alt="Tuodi SMT Floor" class="w-full h-full object-cover transition-all duration-700 opacity-80 mix-blend-screen" crossorigin="anonymous">
+            <div class="absolute inset-0 bg-gradient-to-t from-[#05070a] via-transparent to-transparent"></div>
+            
+            <div class="absolute top-4 right-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded border border-white/10 text-[10px] font-mono text-cyan-300">
+              ● REAL-TIME AUDIT STREAM: CAM-04 (SHENZHEN PLANT)
+            </div>
+
+            <div class="absolute bottom-6 left-6 right-6">
+              <h3 id="fac-title" class="text-2xl font-bold text-white mb-2">Yamaha High-Speed SMT Automated Lines</h3>
+              <p id="fac-desc" class="text-xs text-slate-300 max-w-2xl leading-relaxed">
+                4 dedicated SMT lines featuring Yamaha YSM20R modular mounters, 10-zone nitrogen reflow ovens, and 3D SPI automated optical inspection to ensure zero cold solder joints.
+              </p>
+            </div>
           </div>
         </div>
 
       </div>
+
     </div>
   </section>
 
-  <!-- Compliance Minimal -->
-  <section id="compliance" class="py-32 bg-[#050505] border-y border-[#1a1a1a]">
-    <div class="max-w-[1400px] mx-auto px-6 text-center reveal">
-      <h2 class="text-3xl md:text-5xl font-bold tracking-tighter mb-12">Global Compliance Standard.</h2>
-      <div class="flex flex-wrap justify-center items-center gap-12 opacity-60 grayscale hover:grayscale-0 transition-all duration-500">
-        <span class="text-2xl font-bold font-mono tracking-tighter">ISO:9001</span>
-        <span class="text-2xl font-bold font-mono tracking-tighter">CE-EMC</span>
-        <span class="text-2xl font-bold font-mono tracking-tighter">FCC</span>
-        <span class="text-2xl font-bold font-mono tracking-tighter">RoHS</span>
-        <span class="text-2xl font-bold font-mono tracking-tighter">UKCA</span>
-        <span class="text-2xl font-bold font-mono tracking-tighter">BSCI</span>
+  <!-- Download Hub for Engineers & Procurement -->
+  <section id="downloads" class="py-24 px-6 bg-[#05070a] hairline-border-t">
+    <div class="max-w-7xl mx-auto">
+      
+      <div class="text-center max-w-2xl mx-auto mb-16 reveal">
+        <div class="tech-tag text-cyan-400 border-cyan-500/30 mb-3 inline-block">ENGINEERING RESOURCE VAULT</div>
+        <h2 class="text-3xl sm:text-5xl font-extrabold tracking-tighter text-white mb-3">Download Compliance & CAD Files.</h2>
+        <p class="text-slate-400 text-xs sm:text-sm">Instant access to 3D CAD models, IES photometric curves, and ISO audit declarations.</p>
       </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+        
+        <div class="titanium-panel p-6 rounded-xl reveal flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 font-mono font-bold text-sm">3D</div>
+            <h4 class="text-sm font-bold text-white mb-1">3D CAD Master Vault</h4>
+            <p class="text-xs text-slate-400 mb-4">Universal .STEP, .IGES, and SolidWorks CAD assemblies for all sensor models.</p>
+          </div>
+          <button onclick="downloadCadSpec()" class="text-xs font-mono text-cyan-400 hover:text-white flex items-center gap-1">Download Archive (.ZIP) →</button>
+        </div>
+
+        <div class="titanium-panel p-6 rounded-xl reveal flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 font-mono font-bold text-sm">IES</div>
+            <h4 class="text-sm font-bold text-white mb-1">IES Photometric Data</h4>
+            <p class="text-xs text-slate-400 mb-4">Complete optical ray distributions for Dialux and Relux lighting simulations.</p>
+          </div>
+          <button onclick="downloadCadSpec()" class="text-xs font-mono text-cyan-400 hover:text-white flex items-center gap-1">Download IES Files →</button>
+        </div>
+
+        <div class="titanium-panel p-6 rounded-xl reveal flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 font-mono font-bold text-sm">ISO</div>
+            <h4 class="text-sm font-bold text-white mb-1">ISO 9001:2015 Certificate</h4>
+            <p class="text-xs text-slate-400 mb-4">Official accredited quality management system certificate & audit report.</p>
+          </div>
+          <button onclick="downloadCadSpec()" class="text-xs font-mono text-cyan-400 hover:text-white flex items-center gap-1">View PDF Certificate →</button>
+        </div>
+
+        <div class="titanium-panel p-6 rounded-xl reveal flex flex-col justify-between">
+          <div>
+            <div class="w-10 h-10 rounded bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400 mb-4 font-mono font-bold text-sm">CE</div>
+            <h4 class="text-sm font-bold text-white mb-1">CE / FCC / RoHS Declarations</h4>
+            <p class="text-xs text-slate-400 mb-4">EMC, LVD, and environmental safety test reports from accredited SGS / TUV labs.</p>
+          </div>
+          <button onclick="downloadCadSpec()" class="text-xs font-mono text-cyan-400 hover:text-white flex items-center gap-1">Download Test Reports →</button>
+        </div>
+
+      </div>
+
     </div>
   </section>
 
-  <!-- Minimal Footer -->
-  <footer class="bg-black py-20 border-t border-[#222]">
-    <div class="max-w-[1400px] mx-auto px-6 flex flex-col md:flex-row justify-between items-start md:items-end gap-10">
+  <!-- Global Footer -->
+  <footer class="bg-[#030508] border-t border-white/[0.08] py-16 px-6">
+    <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      
+      <div class="space-y-4 md:col-span-2">
+        <div class="flex items-center gap-3">
+          <div class="w-8 h-8 rounded bg-gradient-to-br from-cyan-400 to-blue-600 flex items-center justify-center text-black font-extrabold">T</div>
+          <span class="text-base font-bold text-white">SHENZHEN TUODI ELECTRONICS CO., LTD.</span>
+        </div>
+        <p class="text-xs text-slate-400 max-w-md leading-relaxed">
+          National High-Tech Enterprise specializing in human infrared PIR sensors, 5.8GHz microwave radar switches, ultra-thin cabinet lighting, and acoustic sleep devices.
+        </p>
+        <div class="text-xs font-mono text-slate-500">
+          Plant Address: Bldg 29, Northern Yongfa Tech Park, Shajing, Bao'an District, Shenzhen, China.
+        </div>
+      </div>
+
       <div>
-        <div class="w-8 h-8 bg-white text-black flex items-center justify-center font-bold text-xl rounded-sm tracking-tighter mb-6">T</div>
-        <p class="text-sm text-gray-500 max-w-sm">Shenzhen Tuodi Electronics Co., Ltd.<br>Bldg 29, Northern Yongfa Tech Park, Shajing, Bao'an, Shenzhen.</p>
+        <h5 class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-4">Engineering Capabilities</h5>
+        <ul class="space-y-2 text-xs text-slate-400 font-mono">
+          <li>• SMT Pick & Place (0201)</li>
+          <li>• Private Injection Tooling</li>
+          <li>• Microwave Doppler RF Tuning</li>
+          <li>• Optical Integrating Darkroom</li>
+          <li>• 48h Thermal Burn-In Chamber</li>
+        </ul>
       </div>
-      <div class="text-sm font-mono text-gray-600 text-left md:text-right">
-        <p>sales@tuodi.com</p>
-        <p>+86-0755-27283861</p>
-        <p class="mt-4">© 2026 Tuodi Electronics. All Rights Reserved.</p>
+
+      <div>
+        <h5 class="text-xs font-mono text-cyan-400 uppercase tracking-widest mb-4">Direct Contact</h5>
+        <div class="space-y-2 text-xs text-slate-300 font-mono">
+          <div>HQ Phone: +86-0755-27283861</div>
+          <div>Direct Export: sales@tuodi.com</div>
+          <div>Engineering: tech@tuodi.com</div>
+          <div class="pt-2">
+            <button onclick="openRfqModal()" class="text-cyan-400 font-bold hover:underline">Launch Enterprise RFQ →</button>
+          </div>
+        </div>
       </div>
+
+    </div>
+
+    <div class="max-w-7xl mx-auto pt-8 border-t border-white/[0.06] flex flex-col sm:flex-row items-center justify-between text-[11px] font-mono text-slate-400 gap-4">
+      <div>© 2005-2026 Shenzhen Tuodi Electronics Co., Ltd. All Rights Reserved.</div>
+      <div>ICP Registration: 粤ICP备20009965号 • ISO 9001:2015 Verified</div>
     </div>
   </footer>
 
-  <!-- Contact Modal -->
-  <div id="rfq-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl hidden items-center justify-center p-6">
-    <div class="w-full max-w-xl bg-[#111] border border-[#222] p-10 rounded-2xl relative">
-      <button onclick="closeModal('rfq-modal')" class="absolute top-6 right-6 text-gray-500 hover:text-white">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M6 18L18 6M6 6l12 12"/></svg>
+  <!-- Enterprise RFQ & Sample Modal -->
+  <div id="rfq-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl hidden items-center justify-center p-4">
+    <div class="w-full max-w-2xl bg-[#090d16] border border-white/20 p-8 rounded-2xl relative shadow-2xl">
+      <button onclick="closeRfqModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
       </button>
-      <h3 class="text-3xl font-bold tracking-tight mb-2">Direct Procurement.</h3>
-      <p class="text-gray-400 text-sm mb-8">Request BOM, datasheets, or schedule a factory audit.</p>
-      
-      <form class="space-y-4" onsubmit="event.preventDefault(); alert('Request sent to Tuodi HQ.'); closeModal('rfq-modal');">
-        <div>
-          <input type="text" placeholder="Company Name" class="w-full bg-black border border-[#333] px-4 py-3 rounded-lg text-white focus:outline-none focus:border-white transition-colors">
+
+      <div class="mb-6">
+        <div class="tech-tag text-cyan-400 border-cyan-500/30 mb-2 inline-block">DIRECT FACTORY RFQ & BOM DISPATCH</div>
+        <h3 class="text-2xl font-bold text-white">Direct Procurement & Engineering Sample Request</h3>
+        <p class="text-xs text-slate-400 mt-1">Connect directly with Tuodi's Senior Hardware Engineering Director. 2h response time.</p>
+      </div>
+
+      <form onsubmit="handleRfqSubmit(event)" class="space-y-4 text-xs font-mono">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-slate-400 block mb-1">Company / Brand Name</label>
+            <input type="text" required placeholder="e.g. Philips Smart Home" class="w-full bg-[#05070a] border border-white/10 p-3 rounded text-white focus:border-cyan-400 outline-none">
+          </div>
+          <div>
+            <label class="text-slate-400 block mb-1">Business Email</label>
+            <input type="email" required placeholder="procurement@company.com" class="w-full bg-[#05070a] border border-white/10 p-3 rounded text-white focus:border-cyan-400 outline-none">
+          </div>
         </div>
-        <div>
-          <input type="email" placeholder="Business Email" class="w-full bg-black border border-[#333] px-4 py-3 rounded-lg text-white focus:outline-none focus:border-white transition-colors">
+
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          <div>
+            <label class="text-slate-400 block mb-1">Hardware Target</label>
+            <select id="rfq-model-select" class="w-full bg-[#05070a] border border-white/10 p-3 rounded text-white focus:border-cyan-400 outline-none">
+              <option value="TD-SL-8022">TD-SL-8022 (Magnetic Cabinet Light)</option>
+              <option value="TD-MW-360B">TD-MW-360B (5.8GHz Microwave Switch)</option>
+              <option value="TD-WS-401">TD-WS-401 (0.25s Touchless Tap)</option>
+              <option value="TD-KC-505">TD-KC-505 (RFID Energy Switch)</option>
+              <option value="OEM-CUSTOM">Custom Turnkey OEM / ODM Project</option>
+            </select>
+          </div>
+          <div>
+            <label class="text-slate-400 block mb-1">Estimated Annual Batch Quantity</label>
+            <select class="w-full bg-[#05070a] border border-white/10 p-3 rounded text-white focus:border-cyan-400 outline-none">
+              <option>Pilot Sample Batch (500 - 1,000 pcs)</option>
+              <option>Medium Volume (5,000 - 20,000 pcs)</option>
+              <option>Mass Production (50,000+ pcs)</option>
+            </select>
+          </div>
         </div>
+
         <div>
-          <select class="w-full bg-black border border-[#333] px-4 py-3 rounded-lg text-white focus:outline-none focus:border-white transition-colors">
-            <option>OEM/ODM Custom Project</option>
-            <option>Request Samples (TD-SL-8022)</option>
-            <option>Request Samples (TD-MW-360B)</option>
-            <option>Request Samples (TD-WS-401)</option>
-          </select>
+          <label class="text-slate-400 block mb-1">Customization Requirements</label>
+          <textarea rows="3" placeholder="Specify custom trigger sensitivity, lux threshold, laser branding, or custom PCB pinouts..." class="w-full bg-[#05070a] border border-white/10 p-3 rounded text-white focus:border-cyan-400 outline-none"></textarea>
         </div>
-        <button type="submit" class="w-full bg-white text-black font-semibold py-4 rounded-lg mt-4 hover:opacity-90 transition-opacity">Submit Request</button>
+
+        <div class="flex items-center gap-2 text-slate-400">
+          <input type="checkbox" id="nda-check" checked class="rounded bg-black">
+          <label for="nda-check">Send Mutual Non-Disclosure Agreement (NDA) prior to engineering review.</label>
+        </div>
+
+        <button type="submit" class="btn-primary w-full justify-center py-3.5 mt-2">
+          <span>Submit Request For Quotation</span>
+        </button>
       </form>
     </div>
   </div>
 
+  <!-- Engineering Product Spec Modal (With 3D CAD & IES Tabs) -->
+  <div id="spec-modal" class="fixed inset-0 z-[100] bg-black/90 backdrop-blur-xl hidden items-center justify-center p-4">
+    <div class="w-full max-w-3xl bg-[#090d16] border border-white/20 p-8 rounded-2xl relative shadow-2xl max-h-[90vh] overflow-y-auto">
+      <button onclick="closeSpecModal()" class="absolute top-6 right-6 text-slate-400 hover:text-white p-2">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+      </button>
+      <div id="spec-modal-body">
+        <!-- Injected via app.js -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Main JavaScript Engine -->
   <script src="app.js"></script>
 </body>
 </html>
