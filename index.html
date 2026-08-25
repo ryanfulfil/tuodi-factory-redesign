@@ -471,14 +471,13 @@
               </div>
 
               <!-- High-Tech Factory Visual Simulation -->
-              <div class="h-56 rounded-xl bg-slate-950 border border-slate-800 relative overflow-hidden mb-6 flex items-center justify-center p-6">
-                <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
-                <div class="text-center z-10 space-y-2">
-                  <div class="w-14 h-14 mx-auto rounded-xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center text-cyan-400">
-                    <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"/></svg>
-                  </div>
-                  <div class="text-xs font-mono text-cyan-300 font-semibold uppercase tracking-wider">CCTV & INDUSTRIAL TELEMETRY STREAM</div>
-                  <div id="factory-area-stats" class="text-[11px] font-mono text-slate-400">40,000 CPH Precision Placement • 0201 Chip Scale Accuracy • 10-Zone Nitrogen Reflow</div>
+              <div class="h-56 rounded-xl bg-slate-950 border border-slate-800 relative overflow-hidden mb-6 flex items-center justify-center p-0">
+                <div class="absolute inset-0 bg-grid-pattern opacity-20 z-10 pointer-events-none"></div>
+                <img id="factory-area-img" src="https://www.tuodi.com/template/tuodi/skin/images/fzlc1.jpg" alt="Factory Area" class="w-full h-full object-cover opacity-80 mix-blend-screen" crossorigin="anonymous" onerror="this.style.display='none'" />
+                <div class="absolute inset-0 bg-gradient-to-t from-slate-950 to-transparent z-10"></div>
+                <div class="absolute bottom-4 left-0 right-0 text-center z-20 space-y-1">
+                  <div class="text-[10px] font-mono text-cyan-400 font-semibold uppercase tracking-wider bg-slate-950/80 inline-block px-2 py-0.5 rounded backdrop-blur border border-cyan-500/30">CCTV & INDUSTRIAL TELEMETRY STREAM</div>
+                  <div id="factory-area-stats" class="text-[11px] font-mono text-slate-300 bg-slate-950/80 inline-block px-2 py-0.5 rounded backdrop-blur shadow-md">40,000 CPH Precision Placement • 0201 Chip Scale Accuracy</div>
                 </div>
               </div>
 

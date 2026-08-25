@@ -41,7 +41,7 @@ const i18n = {
     submit_rfq: "Submit Request for Quotation (Fast 2h Response)",
     footer_tagline: "Shenzhen Tuodi Electronics Co., Ltd. • High-Tech Enterprise",
     footer_addr: "Bldg 29, Northern Yongfa Tech Park, Shajing, Bao'an District, Shenzhen, China",
-    footer_rights: "© 2005-2026 Shenzhen Tuodi Electronics Co., Ltd. All Rights Reserved. ICP: 粤ICP备20009965号"
+    footer_rights: "© 2005-2026 Shenzhen Tuodi Electronics Co., Ltd. All Rights Reserved. ICP: Yue ICP Bei 20009965"
   },
   cn: {
     nav_products: "产品与传感器",
@@ -106,6 +106,11 @@ function setLanguage(lang) {
       btnEn.className = "px-2 py-1 rounded text-slate-400 hover:text-white text-xs";
     }
   }
+  
+  // Re-render products to update texts
+  const currentTab = document.querySelector('.prod-tab-btn.bg-cyan-500\\\\/20') || document.querySelector('.prod-tab-btn');
+  const category = currentTab ? currentTab.dataset.category : 'all';
+  filterProducts(category);
 }
 
 // --- 2. PRODUCT DATABASE & MODAL ---
@@ -125,12 +130,12 @@ const products = [
       "Battery Capacity": "900mAh - 2200mAh Li-Po",
       "Thickness": "9.0 mm Ultra-slim Aircraft Aluminum",
       "Color Temp": "3000K Warm / 4500K Neutral / 6500K Cool",
-      "Standby Current": "< 18 μA (180 Days Standby)",
+      "Standby Current": "< 18 uA (180 Days Standby)",
       "Certifications": "CE, FCC, RoHS, PSE, UN38.3"
     },
     descEn: "Designed for premium under-cabinet and wardrobe lighting with seamless edge-lit diffuse optics and dual auto/manual modes.",
     descCn: "专为高端橱柜、衣帽间打造，侧发光超薄全面屏，磁吸免打孔安装，三档色温随心切换。",
-    img: "cabinet_light"
+    img: "https://www.tuodi.com/static/upload/image/20240608/1717815887230502.jpg"
   },
   {
     id: "td-sw-02",
@@ -152,7 +157,7 @@ const products = [
     },
     descEn: "High-penetration Doppler radar sensor capable of detecting motion through non-metallic walls, wood, and glass for smart corridors and parking complexes.",
     descCn: "高灵敏度高频微波多普勒雷达，可穿透非金属介质，专为地下车库、商业楼宇、智能走廊设计。",
-    img: "radar_switch"
+    img: "https://www.tuodi.com/static/upload/image/20240608/1717817190641560.jpg"
   },
   {
     id: "td-wn-03",
@@ -174,7 +179,7 @@ const products = [
     },
     descEn: "Engineered with patented soothing acoustic wave algorithms for deep sleep therapy, nursery soothing, and focused office environments.",
     descCn: "内置28种母婴及深睡级无损自然原声，配备柔光七彩呼吸小夜灯，支持无缝循环声学算法。",
-    img: "white_noise"
+    img: "https://images.unsplash.com/photo-1542273917363-3b1817f69a5d?auto=format&fit=crop&w=800&q=80"
   },
   {
     id: "td-ws-04",
@@ -196,7 +201,7 @@ const products = [
     },
     descEn: "Transforms standard kitchen and bathroom faucets into smart infrared touchless fixtures. Built-in overflow safety shutdown.",
     descCn: "双感应区设计（底部即开即停/侧面长出水），通用6款转接头，IPX6级防水，打造零接触洁净生活。",
-    img: "tap_sensor"
+    img: "https://www.tuodi.com/static/upload/image/20240608/1717815907758085.jpg"
   },
   {
     id: "td-ec-05",
@@ -218,7 +223,7 @@ const products = [
     },
     descEn: "Recognizes room-specific RFID cards only, preventing ordinary paper/business card bypass, slashing hotel HVAC and lighting power waste by up to 35%.",
     descCn: "专用高频识别卡片，杜绝普通纸片代插，内置30A-40A超大功率继电器，有效节约酒店客房能耗30%以上。",
-    img: "card_switch"
+    img: "https://www.tuodi.com/static/upload/image/20240608/1717815915639912.jpg"
   },
   {
     id: "td-pir-06",
@@ -231,7 +236,7 @@ const products = [
     moq: "2,000 pcs",
     specs: {
       "Supply Voltage": "DC 3.3V - 12V Wide Input",
-      "Quiescent Current": "< 12 μA (Ultra-low sleep)",
+      "Quiescent Current": "< 12 uA (Ultra-low sleep)",
       "Lens Option": "Micro 10mm / Standard 23mm Fresnel",
       "Trigger Mode": "Repeatable / Non-repeatable",
       "Output Signal": "High/Low 3.3V TTL Level or Open Drain",
@@ -240,7 +245,7 @@ const products = [
     },
     descEn: "Compact turnkey sensor PCBA module for integration into smart mirrors, cabinet strips, solar garden lights, and IoT appliances.",
     descCn: "体积小巧、功耗极低，支持定制PCB尺寸与引脚定义，广泛适配智能卫浴镜、太阳能灯具及IoT物联设备。",
-    img: "pir_module"
+    img: "https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80"
   }
 ];
 
@@ -259,53 +264,56 @@ function filterProducts(category) {
 
   const filtered = category === 'all' ? products : products.filter(p => p.category === category);
   
-  container.innerHTML = filtered.map(p => `
-    <div class="glass-panel rounded-2xl p-6 relative group transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/40 flex flex-col justify-between">
-      <div>
+  container.innerHTML = filtered.map(p => \`
+    <div class="glass-panel rounded-2xl p-6 relative group transition-all duration-300 hover:-translate-y-1 hover:border-cyan-500/40 flex flex-col justify-between overflow-hidden">
+      
+      <!-- Background Image Overlay -->
+      <div class="absolute inset-0 z-0">
+        <img src="\${p.img}" alt="\${p.code}" class="w-full h-full object-cover opacity-10 mix-blend-luminosity group-hover:opacity-20 group-hover:scale-105 transition-all duration-700" crossorigin="anonymous" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0f172a] via-[#0f172a]/95 to-[#0f172a]/70"></div>
+      </div>
+      
+      <div class="relative z-10">
         <div class="flex items-center justify-between mb-4">
-          <span class="px-2.5 py-1 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/60 text-xs font-mono font-medium">${p.code}</span>
-          <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-mono">${p.badge}</span>
+          <span class="px-2.5 py-1 rounded bg-cyan-950/60 text-cyan-400 border border-cyan-800/60 text-xs font-mono font-medium shadow-md">\${p.code}</span>
+          <span class="text-xs px-2.5 py-0.5 rounded-full bg-amber-500/10 text-amber-400 border border-amber-500/30 font-mono backdrop-blur-md flex items-center gap-1">
+             <span class="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span> \${p.badge}
+          </span>
         </div>
         
-        <div class="h-44 rounded-xl bg-slate-950/80 border border-slate-800/80 mb-5 flex items-center justify-center p-4 relative overflow-hidden group-hover:border-cyan-500/30 transition-all">
-          <div class="absolute inset-0 bg-grid-pattern opacity-20"></div>
-          <div class="relative z-10 flex flex-col items-center">
-            <div class="w-16 h-16 rounded-2xl bg-cyan-500/10 border border-cyan-500/30 flex items-center justify-center mb-2 group-hover:scale-110 transition-transform text-cyan-400">
-              <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
-            </div>
-            <span class="text-xs font-mono text-slate-400 tracking-wider">HARDWARE SPEC MODEL</span>
-          </div>
-          <div class="absolute bottom-2 right-2 text-[10px] font-mono text-slate-500 bg-slate-900/80 px-2 py-0.5 rounded">MOQ: ${p.moq}</div>
+        <div class="h-44 rounded-xl bg-[#0a1019] border border-slate-700/50 mb-5 relative overflow-hidden group-hover:border-cyan-500/50 transition-all shadow-inner">
+          <img src="\${p.img}" alt="\${p.code}" class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 opacity-90" crossorigin="anonymous" onerror="this.src='https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80'" />
+          <div class="absolute inset-0 bg-gradient-to-b from-transparent to-[#0a1019]/90"></div>
+          
+          <div class="absolute bottom-2 right-2 text-[10px] font-mono text-cyan-300 bg-cyan-950/80 px-2 py-0.5 rounded border border-cyan-800/50">MOQ: \${p.moq}</div>
         </div>
 
-        <h3 class="text-lg font-bold text-white mb-2 leading-snug group-hover:text-cyan-400 transition-colors">
-          ${currentLang === 'en' ? p.nameEn : p.nameCn}
+        <h3 class="text-lg font-bold text-white mb-2 leading-snug group-hover:text-cyan-400 transition-colors drop-shadow-md">
+          \${currentLang === 'en' ? p.nameEn : p.nameCn}
         </h3>
-        <p class="text-xs text-slate-400 mb-4 line-clamp-2 leading-relaxed">
-          ${currentLang === 'en' ? p.descEn : p.descCn}
+        <p class="text-xs text-slate-300 mb-4 line-clamp-2 leading-relaxed relative z-10">
+          \${currentLang === 'en' ? p.descEn : p.descCn}
         </p>
       </div>
 
-      <div>
-        <div class="border-t border-slate-800/80 pt-4 mb-4 grid grid-cols-2 gap-2 text-xs font-mono">
-          <div class="text-slate-400">Lead Time: <span class="text-slate-200 font-semibold">${p.leadTime}</span></div>
+      <div class="relative z-10">
+        <div class="border-t border-slate-700/80 pt-4 mb-4 grid grid-cols-2 gap-2 text-xs font-mono">
+          <div class="text-slate-400">Lead Time: <span class="text-cyan-400 font-semibold">\${p.leadTime}</span></div>
           <div class="text-slate-400 text-right">Factory Direct</div>
         </div>
 
         <div class="flex items-center gap-2">
-          <button onclick="openSpecModal('${p.id}')" class="flex-1 py-2 px-3 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-700">
+          <button onclick="openSpecModal('\${p.id}')" class="flex-1 py-2 px-3 rounded-lg bg-slate-800/80 hover:bg-slate-700 text-slate-200 text-xs font-semibold flex items-center justify-center gap-1.5 transition-colors border border-slate-600 backdrop-blur-sm">
             <svg class="w-3.5 h-3.5 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
-            <span>${currentLang === 'en' ? 'Full Datasheet' : '技术规格书'}</span>
+            <span>\${currentLang === 'en' ? 'Full Datasheet' : '技术规格书'}</span>
           </button>
-          <button onclick="openRfqModal('${p.code}')" class="py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 text-xs font-bold transition-all shadow-md">
-            ${currentLang === 'en' ? 'Sample' : '打样'}
+          <button onclick="openRfqModal('\${p.code}')" class="py-2 px-3 rounded-lg bg-gradient-to-r from-cyan-500 to-blue-600 hover:from-cyan-400 hover:to-blue-500 text-slate-950 text-xs font-bold transition-all shadow-[0_0_15px_rgba(0,240,255,0.3)]">
+            \${currentLang === 'en' ? 'Sample' : '打样'}
           </button>
         </div>
       </div>
     </div>
-  `).join('');
+  \`).join('');
 }
 
 function openSpecModal(productId) {
@@ -316,21 +324,21 @@ function openSpecModal(productId) {
   const modalBody = document.getElementById('spec-modal-content');
   if (!modal || !modalBody) return;
 
-  const specRows = Object.entries(p.specs).map(([k, v]) => `
+  const specRows = Object.entries(p.specs).map(([k, v]) => \`
     <tr class="border-b border-slate-800/80">
-      <td class="py-2.5 px-4 text-xs font-mono text-slate-400 bg-slate-950/40">${k}</td>
-      <td class="py-2.5 px-4 text-xs font-mono text-cyan-300 font-semibold">${v}</td>
+      <td class="py-2.5 px-4 text-xs font-mono text-slate-400 bg-slate-950/40">\${k}</td>
+      <td class="py-2.5 px-4 text-xs font-mono text-cyan-300 font-semibold">\${v}</td>
     </tr>
-  `).join('');
+  \`).join('');
 
-  modalBody.innerHTML = `
+  modalBody.innerHTML = \`
     <div class="flex items-start justify-between border-b border-slate-800 pb-4 mb-6">
       <div>
         <div class="flex items-center gap-3 mb-1">
-          <span class="px-2.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 text-xs font-mono">${p.code}</span>
-          <span class="text-xs text-amber-400 font-mono">${p.badge}</span>
+          <span class="px-2.5 py-0.5 rounded bg-cyan-950 text-cyan-400 border border-cyan-800 text-xs font-mono">\${p.code}</span>
+          <span class="text-xs text-amber-400 font-mono">\${p.badge}</span>
         </div>
-        <h2 class="text-xl font-bold text-white">${currentLang === 'en' ? p.nameEn : p.nameCn}</h2>
+        <h2 class="text-xl font-bold text-white">\${currentLang === 'en' ? p.nameEn : p.nameCn}</h2>
       </div>
       <button onclick="closeSpecModal()" class="text-slate-400 hover:text-white p-2 rounded-lg bg-slate-800/50">
         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
@@ -342,7 +350,7 @@ function openSpecModal(productId) {
         <h4 class="text-xs font-bold tracking-wider text-slate-400 uppercase font-mono mb-3">Electrical & Physical Specifications</h4>
         <div class="overflow-hidden rounded-xl border border-slate-800 bg-slate-900/60">
           <table class="w-full text-left">
-            <tbody>${specRows}</tbody>
+            <tbody>\${specRows}</tbody>
           </table>
         </div>
       </div>
@@ -367,17 +375,17 @@ function openSpecModal(productId) {
         </div>
 
         <div class="pt-4 mt-4 border-t border-slate-800 flex items-center gap-3">
-          <button onclick="downloadDatasheet('${p.code}')" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 transition-all">
+          <button onclick="downloadDatasheet('\${p.code}')" class="flex-1 py-2.5 px-4 rounded-xl bg-slate-800 hover:bg-slate-700 text-white text-xs font-semibold flex items-center justify-center gap-2 border border-slate-700 transition-all">
             <svg class="w-4 h-4 text-cyan-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>
             Download Engineering .PDF
           </button>
-          <button onclick="closeSpecModal(); openRfqModal('${p.code}');" class="flex-1 py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-cyan-500/20">
+          <button onclick="closeSpecModal(); openRfqModal('\${p.code}');" class="flex-1 py-2.5 px-4 rounded-xl bg-cyan-500 hover:bg-cyan-400 text-slate-950 text-xs font-bold transition-all shadow-lg shadow-cyan-500/20">
             Request Engineering Sample
           </button>
         </div>
       </div>
     </div>
-  `;
+  \`;
 
   modal.classList.remove('hidden');
   modal.classList.add('flex');
@@ -392,7 +400,7 @@ function closeSpecModal() {
 }
 
 function downloadDatasheet(code) {
-  alert(`[Engineering Spec Download] Technical Datasheet for model ${code} (Rev 3.2, PDF & Step 3D CAD) has been prepared for download.`);
+  alert(\`[Engineering Spec Download] Technical Datasheet for model \${code} (Rev 3.2, PDF & Step 3D CAD) has been prepared for download.\`);
 }
 
 // --- 3. INTERACTIVE RFQ & SAMPLE CALCULATOR ---
@@ -444,8 +452,8 @@ function updateRfqEstimator() {
     leadDays = 30;
   }
   
-  if (unitEst) unitEst.textContent = `$${unitPrice.toFixed(2)} USD / pc`;
-  if (leadTimeEst) leadTimeEst.textContent = `${leadDays} Days (FOB/DDP)`;
+  if (unitEst) unitEst.textContent = \`$\${unitPrice.toFixed(2)} USD / pc\`;
+  if (leadTimeEst) leadTimeEst.textContent = \`\${leadDays} Days (FOB/DDP)\`;
 }
 
 function handleRfqSubmit(e) {
@@ -454,7 +462,7 @@ function handleRfqSubmit(e) {
   const name = form.name ? form.name.value : 'Partner';
   const code = form.product ? form.product.value : 'TD-Hardware';
   
-  alert(`Thank you, ${name}! Your Request for Quotation (RFQ) for ${code} has been routed directly to Shenzhen Tuodi Electronics Senior Engineering & Export Director. Formal quotation and sample dispatch confirmation will be emailed within 2 hours.`);
+  alert(\`Thank you, \${name}! Your Request for Quotation (RFQ) for \${code} has been routed directly to Shenzhen Tuodi Electronics Senior Engineering & Export Director. Formal quotation and sample dispatch confirmation will be emailed within 2 hours.\`);
   closeRfqModal();
 }
 
@@ -565,7 +573,7 @@ function initSensorCanvas() {
         waves.splice(i, 1);
         return;
       }
-      ctx.strokeStyle = `rgba(0, 240, 255, ${w.alpha})`;
+      ctx.strokeStyle = \`rgba(0, 240, 255, \${w.alpha})\`;
       ctx.lineWidth = 1.5;
       ctx.beginPath();
       ctx.arc(0, 0, w.r, Math.PI / 2 - spreadAngle / 2, Math.PI / 2 + spreadAngle / 2);
@@ -613,11 +621,11 @@ function initSensorCanvas() {
       const teleDist = document.getElementById('tele-dist');
       const teleLatency = document.getElementById('tele-latency');
       if (teleStatus) teleStatus.innerHTML = '<span class="text-emerald-400 font-bold">● TARGET ACQUIRED (TRIGGER HIGH)</span>';
-      if (teleDist) teleDist.textContent = `${(dist / 35).toFixed(2)} m`;
-      if (teleLatency) teleLatency.textContent = `0.18 ms`;
+      if (teleDist) teleDist.textContent = \`\${(dist / 35).toFixed(2)} m\`;
+      if (teleLatency) teleLatency.textContent = \`0.18 ms\`;
     } else {
       const teleStatus = document.getElementById('tele-status');
-      if (teleStatus) teleStatus.innerHTML = '<span class="text-slate-400">IDLE STANDBY (< 15μA)</span>';
+      if (teleStatus) teleStatus.innerHTML = '<span class="text-slate-400">IDLE STANDBY (< 15uA)</span>';
     }
 
     canvasAnimId = requestAnimationFrame(draw);
@@ -644,7 +652,7 @@ function setSensorMode(mode) {
     if (bodyEl) bodyEl.textContent = "High-frequency electromagnetic CW radar that penetrates plastic, glass, and wood. Impervious to environmental temperature, airflow, or dust interference.";
   } else if (mode === 'pir') {
     if (titleEl) titleEl.textContent = "Dual-Element Pyroelectric PIR & Optical Fresnel Arrays";
-    if (bodyEl) bodyEl.textContent = "Detects subtle 9.4μm infrared thermal wavelength variations emitted by human bodies. Integrated dual-differential optical compensation prevents false animal triggers.";
+    if (bodyEl) bodyEl.textContent = "Detects subtle 9.4um infrared thermal wavelength variations emitted by human bodies. Integrated dual-differential optical compensation prevents false animal triggers.";
   } else if (mode === 'hydro') {
     if (titleEl) titleEl.textContent = "0.25s Fast Hydro-Pulse Dynamic Sensing";
     if (bodyEl) bodyEl.textContent = "Patented dual-zone infrared reflection sensor with sub-second magnetic valve actuation, providing 10-year battery standby without external AC wiring.";
@@ -656,30 +664,34 @@ const factoryAreas = {
   smt: {
     titleEn: "Yamaha High-Speed SMT Pick-and-Place Lines",
     titleCn: "雅马哈高速贴片机与全自动SMT贴片生产线",
-    stats: "40,000 CPH Precision Placement • 0201 Chip Scale Accuracy • 10-Zone Nitrogen Reflow",
-    descEn: "4 dedicated surface-mount lines capable of high-density multi-layer sensor PCBA mounting, 3D SPI solder paste inspection, and automated optical inspection (AOI).",
-    descCn: "配备4条全自动化高精度SMT贴片线，支持0201微型元件贴装、3D SPI锡膏测厚仪与全线AOI自动光学检测。"
+    stats: "40,000 CPH Precision Placement • 0201 Chip Scale Accuracy",
+    descEn: "4 dedicated surface-mount lines capable of high-density multi-layer sensor PCBA mounting, 3D SPI solder paste inspection, and automated optical inspection.",
+    descCn: "配备4条全自动化高精度SMT贴片线，支持0201微型元件贴装、3D SPI锡膏测厚仪与全线AOI自动光学检测。",
+    img: "https://www.tuodi.com/template/tuodi/skin/images/fzlc1.jpg"
   },
   lab: {
     titleEn: "Everfine Integrating Sphere & Darkroom Optical Testing",
     titleCn: "远方高精度积分球光学分析与暗室实验室",
-    stats: "Full Spectroradiometer • CCT/CRI/Lux/SDCM Analysis • IES Luminaire Photometric Lab",
+    stats: "Full Spectroradiometer • CCT/CRI/Lux/SDCM Analysis",
     descEn: "Certified photometrical testing suite measuring total luminous flux, spatial luminous intensity distribution, color consistency, and flicker metrics.",
-    descCn: "配备国家级标定高精度光谱积分球、空间光强分布测试系统，确保每批次灯具发光效率与色容差严格受控。"
+    descCn: "配备国家级标定高精度光谱积分球、空间光强分布测试系统，确保每批次灯具发光效率与色容差严格受控。",
+    img: "https://www.tuodi.com/template/tuodi/skin/images/fzlc2.jpg"
   },
   aging: {
     titleEn: "48-Hour Full-Load Thermal Burn-in Chamber",
     titleCn: "48小时全负载高低温循环老化房",
-    stats: "-40°C to +85°C Dynamic Thermal Stress • 100% Full-batch Burn-in Test",
-    descEn: "Every finished batch undergoes rigorous high-voltage on/off switching cycles and prolonged thermal exposure to ensure 0.02% ultra-low defect rate in the field.",
-    descCn: "所有成品出厂前必须通过高低压反复冲击、高温高湿循环极限测试，保障极端工况下长期稳定工作。"
+    stats: "-40°C to +85°C Dynamic Thermal Stress • 100% Full-batch Test",
+    descEn: "Every finished batch undergoes rigorous high-voltage on/off switching cycles and prolonged thermal exposure to ensure 0.02% ultra-low defect rate.",
+    descCn: "所有成品出厂前必须通过高低压反复冲击、高温高湿循环极限测试，保障极端工况下长期稳定工作。",
+    img: "https://www.tuodi.com/template/tuodi/skin/images/fzlc7.jpg"
   },
   cleanroom: {
     titleEn: "ISO Class 7 Dust-Free Optical Assembly Workshop",
     titleCn: "十万级无尘防静电光学组装洁净车间",
-    stats: "ESD Grounding Control • Constant Temperature & Humidity (22°C ± 2°C, 50% RH)",
+    stats: "ESD Grounding Control • Constant Temperature & Humidity",
     descEn: "Cleanroom environment dedicated to Fresnel lens bonding, ultrasonic welding, and optical diffuser sealing to avoid particulate contamination.",
-    descCn: "专用于透镜贴合、超声波焊接及光学扩散板密封组装，全程防静电手环监控，杜绝微尘杂质污染。"
+    descCn: "专用于透镜贴合、超声波焊接及光学扩散板密封组装，全程防静电手环监控，杜绝微尘杂质污染。",
+    img: "https://www.tuodi.com/template/tuodi/skin/picture/20200408191021_203203800.jpg"
   }
 };
 
@@ -689,25 +701,30 @@ function selectFactoryArea(key) {
 
   document.querySelectorAll('.factory-tab-btn').forEach(btn => {
     if (btn.dataset.area === key) {
-      btn.className = "factory-tab-btn px-4 py-3 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40 text-left transition-all flex items-center justify-between";
+      btn.className = "factory-tab-btn w-full px-5 py-4 rounded-xl bg-cyan-500/20 text-cyan-300 font-bold border border-cyan-500/40 text-left transition-all flex items-center justify-between";
     } else {
-      btn.className = "factory-tab-btn px-4 py-3 rounded-xl bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 text-left transition-all flex items-center justify-between";
+      btn.className = "factory-tab-btn w-full px-5 py-4 rounded-xl bg-slate-900/80 text-slate-400 hover:text-white border border-slate-800 text-left transition-all flex items-center justify-between";
     }
   });
 
   const titleEl = document.getElementById('factory-area-title');
   const statsEl = document.getElementById('factory-area-stats');
   const descEl = document.getElementById('factory-area-desc');
+  const imgEl = document.getElementById('factory-area-img');
   
   if (titleEl) titleEl.textContent = currentLang === 'en' ? area.titleEn : area.titleCn;
   if (statsEl) statsEl.textContent = area.stats;
   if (descEl) descEl.textContent = currentLang === 'en' ? area.descEn : area.descCn;
+  if (imgEl && area.img) {
+    imgEl.src = area.img;
+  }
 }
 
 // --- 6. INITIALIZATION ON DOM READY ---
 document.addEventListener('DOMContentLoaded', () => {
   filterProducts('all');
   initSensorCanvas();
+  selectFactoryArea('smt'); // Initialize first factory tab image
   
   // Mobile menu toggle
   const mobileToggle = document.getElementById('mobile-menu-btn');
